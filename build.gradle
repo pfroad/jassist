@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+apply plugin: 'maven'
+
+group 'com.hawk.agent'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: localMavenRepo)
+//
+//            pom.projectg {
+//                name = project.name
+//                packaging = 'jar'
+//                descripton = 'descripton'
+//            }
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/org.javassist/javassist
+    compile group: 'org.javassist', name: 'javassist', version: '3.22.0-GA'
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.apache.bcel/bcel
+    compile group: 'org.apache.bcel', name: 'bcel', version: '6.2'
+
+}
+
+jar {
+    manifest {
+        attributes('Premain-Class': 'com.hawk.agent.jassist.HawkJAgent')
+        attributes('Can-Retransform-Classes': 'true')
+        attributes('Boot-Class-Path': '/home/ryan/.m2/repository/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar')
+//        attributes('Class-Path': '/home/ryan/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar')
+    }
+}
