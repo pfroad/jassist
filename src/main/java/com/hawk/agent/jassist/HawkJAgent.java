@@ -2,8 +2,11 @@ package com.hawk.agent.jassist;
 
 import com.hawk.agent.jassist.util.StringUtils;
 import javassist.*;
+import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
+import org.apache.bcel.classfile.Method;
+import org.apache.bcel.generic.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -56,13 +59,36 @@ public class HawkJAgent {
 //                        e.printStackTrace();
                     }
                 } else if ("com/airparking/azkaban/TransferOrderDaily".equals(className)) {
-                    InputStream in = new ByteArrayInputStream(classfileBuffer);
-                    try {
-                        JavaClass jc = new ClassParser(in, className).parse();
-//                        jc.get
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    JavaClass jc = Repository.lookupClass(TestBean.class);
+//                    ClassGen classGen = new ClassGen(jc);
+//                    ConstantPoolGen cPoolGen = classGen.getConstantPool();
+//
+//                    Method method = classGen.getMethodAt(1);
+//                    MethodGen methodGen = new MethodGen(method, jc.getClassName(), cPoolGen);
+//                    InstructionList instructionHandles = methodGen.getInstructionList();
+//
+//                    InstructionHandle start = instructionHandles.getStart();
+//                    instructionHandles.delete(start.getNext());
+////            InstructionHandle end = instructionHandles.getEnd();
+////            instructionHandles.delete(start, end);
+//
+//                    int index = cPoolGen.addUtf8("This is bcel test");
+////            InstructionHandle getStatic = instructionHandles.getStart();
+//                    InstructionHandle ldc = instructionHandles.append(start, new LDC(index));
+////            InstructionHandle iconst0 = instructionHandles.append(start, new ICONST(0));
+////            InstructionHandle anewarray = instructionHandles.append(iconst0, new ANEWARRAY(4));
+////            InstructionHandle invokeVirtual = instructionHandles.append(anewarray, new INVOKEVIRTUAL(5));
+////            InstructionHandle pop = instructionHandles.append(invokeVirtual, new POP());
+////            InstructionHandle ret = instructionHandles.append(pop, new RETURN());
+//
+//                    classGen.replaceMethod(method, methodGen.getMethod());
+//
+//                    JavaClass newClass = classGen.getJavaClass();
+////            newClass.
+//                    newClass.dump("test/target/classes/com/spi/TestBean.class");
+//
+//                    TestBean testBean = new TestBean();
+//                    testBean.begin();
 
                     ClassPool cp = ClassPool.getDefault();
                     cp.insertClassPath(new ClassClassPath(this.getClass()));
